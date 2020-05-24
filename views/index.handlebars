@@ -1,0 +1,22 @@
+<!-- ./views/index.handlebars -->
+<div class="container mt-4">
+  <div class="d-flex justify-content-center text-center">
+    <div class="card" style="width: 450px;border:outset">
+      <h5 class="card-header font-weight-bold">URL Shortener</h5>
+      <div class="card-body">
+        <i class="fas fa-link fa-7x" style="color: cadetblue;"></i>
+        <form action="/new" method="POST">
+          <div class="form-group mt-4">
+            <label for="exampleInputurl" class="font-weight-bold">Shorten Your URL!</label>
+            <input type="url" class="form-control" id="exampleInputurl" aria-describedby="urlHelp"
+              placeholder="Input URL here" required>
+            <small id="emailHelp" class="form-text text-muted">*The short URL format is 5 groups of garbled
+              characters.</small>
+          </div>
+          <button class="btn btn-primary" type="submit" id="create-button">Create</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
