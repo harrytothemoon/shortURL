@@ -4,14 +4,13 @@
       <h5 class="card-header font-weight-bold">URL Shortener</h5>
       <div class="card-body">
         <i class="fas fa-link fa-7x" style="color:cadetblue;"></i>
-        <h4 class=" mt-4">Success! Please use below link:</h4>
-        <a href="https://www.google.com.tw/" style="font-size: 20px;">https://www.google.com.tw/</a>
+        <h5 class=" mt-4">{{#if existMessage }}{{existMessage}} {{else}} Success!{{/if}} please use below link:</h5>
+        <a href="{{url.urlShort}}" style="font-size: 20px;">{{url.urlShort}}</a>
+
       </div>
       <div class="mb-3">
         <button class="btn btn-primary" type="button" id="create-button">Copy</button>
       </div>
     </div>
   </div>
-</div>
-</div>
 </div>

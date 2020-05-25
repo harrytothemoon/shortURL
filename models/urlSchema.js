@@ -1,14 +1,20 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
+
 const urlSchema = new Schema({
-  url: {
-    type: URL,
+  urlFull: {
+    type: String,
     required: true
   },
   urlShort: {
-    type: URL,
-    required: true
+    type: String,
+    required: true,
+  },
+  click: {
+    type: Number,
+    required: true,
+    default: 0
   }
 })
 

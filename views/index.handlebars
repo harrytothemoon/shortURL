@@ -9,7 +9,7 @@
           <div class="form-group mt-4">
             <label for="exampleInputurl" class="font-weight-bold">Shorten Your URL!</label>
             <input type="url" class="form-control" id="exampleInputurl" aria-describedby="urlHelp"
-              placeholder="Input URL here" required>
+              placeholder="Input URL here" name="url" required>
             <small id="emailHelp" class="form-text text-muted">*The short URL format is 5 groups of garbled
               characters.</small>
           </div>
@@ -17,6 +17,26 @@
         </form>
       </div>
     </div>
+  </div>
+  <div class="text-center w-75 mx-auto">
+    <table class="table table-hover mt-4">
+      <thead>
+        <tr class="table-primary">
+          <th scope="col">Full URL</th>
+          <th scope="col">Short URL</th>
+          <th scope="col">Clicks</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each url}}
+        <tr class="table-light">
+          <td><a href="{{this.urlFull}}">{{this.urlFull}}</a></td>
+          <td><a href="{{this.urlShort}}">{{this.urlShort}}</a></td>
+          <td>{{this.click}}</td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
   </div>
 </div>
 </div>
