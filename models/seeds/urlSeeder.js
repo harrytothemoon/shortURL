@@ -8,13 +8,13 @@ db.once('open', () => {
 
   url.create({
     urlFull: "https://www.google.com.tw/",
-    urlShort: generateGarbled(5)
+    urlShort: `http://localhost:3000/${generateGarbled(5)}`
 
   })
 
   url.create({
     urlFull: "https://www.yahoo.com.tw/",
-    urlShort: generateGarbled(5)
+    urlShort: `http://localhost:3000/${generateGarbled(5)}`
   })
 
   console.log('done!')

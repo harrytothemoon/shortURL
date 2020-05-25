@@ -41,7 +41,7 @@ router.post('/new', async (req, res, next) => {
           return res.render('new', { url, existMessage })
         } else {
           const newUrl = new urldata({ urlFull: urloriginal })
-          const random = generateGarbled(5)
+          const random = `localhost:3000/${generateGarbled(5)}`
           newUrl.urlShort = random
           return newUrl.save()
             .then(() => {
@@ -64,9 +64,11 @@ router.post('/new', async (req, res, next) => {
 })
 
 router.get('/:shortUrl', (req, res) => {
-  const shortUrl = req.params.shortUrl
+  const shortUrl = `http://localhost:3000/${req.params.shortUrl}`
+  console.log(shortUrl)
   urldata.findOne({ urlShort: shortUrl })
     .then((url) => {
+      console.log(url)
       if (url == null) {
         res.sendStatus(404)
       }
