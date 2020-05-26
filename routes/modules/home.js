@@ -32,6 +32,7 @@ router.post('/new', async (req, res, next) => {
   urldata.findOne({ urlFull: urloriginal })
     .lean()
     .then((url) => {
+      console.log(url)
       //先確認輸入的網址是否有效，有效則進行下一步，無效則跳出提醒
       if (checkUrl) {
         //再確認資料庫是否有值，有的話則提醒已經有短網址可用，無的話則新增一個短網址
@@ -39,9 +40,10 @@ router.post('/new', async (req, res, next) => {
           const existMessage = 'The URL you entered has been shorten previously,'
           console.log('True', url)
           return res.render('new', { url, existMessage })
-        } else {
+        }
+        if (url === null) {
           const newUrl = new urldata({ urlFull: urloriginal })
-          const random = `localhost:3000/${generateGarbled(5)}`
+          const random = `http://localhost:3000/${generateGarbled(5)}`
           newUrl.urlShort = random
           return newUrl.save()
             .then(() => {

@@ -21,6 +21,7 @@ app.set('view engine', 'handlebars')
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(routes)
+app.use(express.static('public'))
 
 // start and listen on the Express server
 app.listen(port, () => {
