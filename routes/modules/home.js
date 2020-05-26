@@ -2,8 +2,9 @@ const express = require('express')
 const urlExist = require('url-exist')
 const router = express.Router()
 const urldata = require('../../models/urlSchema')
-const generateGarbled = require('../../random')
+const generateGarbled = require('../../public/javascripts/random')
 
+//home page
 router.get('/', (req, res) => {
   urldata.find()
     .lean()
@@ -32,26 +33,38 @@ router.post('/new', async (req, res, next) => {
   urldata.findOne({ urlFull: urloriginal })
     .lean()
     .then((url) => {
-      console.log(url)
-      //先確認輸入的網址是否有效，有效則進行下一步，無效則跳出提醒
+      //1.先確認輸入的網址是否有效，有效則進行下一步，無效則跳出提醒
+      //2.再確認資料庫是否有值，有的話則提醒已經有短網址可用，無的話則進行下一步判斷
+      //3.最後判斷是否產生的5碼亂數是否有重複，有的話則進入迴圈，無的話則產生短網址
       if (checkUrl) {
-        //再確認資料庫是否有值，有的話則提醒已經有短網址可用，無的話則新增一個短網址
         if (url) {
           const existMessage = 'The URL you entered has been shorten previously,'
-          console.log('True', url)
           return res.render('new', { url, existMessage })
         }
         if (url === null) {
-          const newUrl = new urldata({ urlFull: urloriginal })
-          const random = `http://localhost:3000/${generateGarbled(5)}`
-          newUrl.urlShort = random
-          return newUrl.save()
+          let random = `http://localhost:3000/${generateGarbled(5)}`
+          urldata.findOne({ urlShort: random })
+            .then((x) => {
+              if (x) {
+                while (x.urlShort === random) {
+                  random = `http://localhost:3000/${generateGarbled(5)}`
+                }
+                return random
+              }
+              if (x === null) {
+                return random
+              }
+            })
             .then(() => {
-              urldata.findOne({ urlFull: urloriginal })
-                .lean()
-                .then((url) => {
-                  console.log('false', url)
-                  res.render('new', { url })
+              const newUrl = new urldata({ urlFull: urloriginal })
+              newUrl.urlShort = random
+              return newUrl.save()
+                .then(() => {
+                  urldata.findOne({ urlFull: urloriginal })
+                    .lean()
+                    .then((url) => {
+                      res.render('new', { url })
+                    })
                 })
             })
         }
@@ -65,19 +78,17 @@ router.post('/new', async (req, res, next) => {
     .catch(error => console.log(error))
 })
 
+//讓短網址重新導向
 router.get('/:shortUrl', (req, res) => {
   const shortUrl = `http://localhost:3000/${req.params.shortUrl}`
-  console.log(shortUrl)
   urldata.findOne({ urlShort: shortUrl })
     .then((url) => {
-      console.log(url)
       if (url == null) {
         res.sendStatus(404)
       }
       if (url !== null) {
         url.click++
         url.save()
-        console.log(url.click)
         res.redirect(url.urlFull)
       }
     })
