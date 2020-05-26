@@ -4,7 +4,8 @@
       <h5 class="card-header font-weight-bold">URL Shortener</h5>
       <div class="card-body mt-3">
         <i class="fas fa-link fa-7x" style="color:cadetblue;"></i>
-        <h5 class=" mt-4">{{#if existMessage }}{{existMessage}} {{else}} Success!{{/if}} please use below link:</h5>
+        <h5 class=" mt-4" style="height: 40px;">{{#if existMessage }}{{existMessage}} {{else}} Success!{{/if}} please
+          use below link:</h5>
         <a id="copyTarget" href="{{url.urlShort}}" style="font-size: 20px;">{{url.urlShort}}</a>
         <div class=" mt-3">
           <button id='btn' class="btn btn-primary" type="button" id="create-button" data-clipboard-target="#copyTarget"
