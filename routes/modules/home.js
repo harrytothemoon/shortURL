@@ -78,6 +78,16 @@ router.post('/new', async (req, res, next) => {
     .catch(error => console.log(error))
 })
 
+// Delete Function
+router.delete('/url/:id', (req, res) => {
+  console.log('hi')
+  const id = req.params.id
+  return urldata.findById(id)
+    .then(url => url.remove())
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
+})
+
 //讓短網址重新導向
 router.get('/:shortUrl', (req, res) => {
   const shortUrl = `https://secret-thicket-82895.herokuapp.com/${req.params.shortUrl}`
