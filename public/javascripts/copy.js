@@ -1,6 +1,10 @@
 function copy() {
-  alert('The URL has been copied to the clipboard!')
+  document.getElementById("custom-tooltip").style.display = "inline";
+  setTimeout(function () {
+    document.getElementById("custom-tooltip").style.display = "none";
+  }, 1000);
 }
+
 
 var clipboard = new ClipboardJS('.btn');
 
