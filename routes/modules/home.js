@@ -42,12 +42,12 @@ router.post('/new', async (req, res, next) => {
           return res.render('new', { url, existMessage })
         }
         if (url === null) {
-          let random = `http://localhost:3000/${generateGarbled(5)}`
+          let random = `https://secret-thicket-82895.herokuapp.com/${generateGarbled(5)}`
           urldata.findOne({ urlShort: random })
             .then((x) => {
               if (x) {
                 while (x.urlShort === random) {
-                  random = `http://localhost:3000/${generateGarbled(5)}`
+                  random = `https://secret-thicket-82895.herokuapp.com/${generateGarbled(5)}`
                 }
                 return random
               }
@@ -80,7 +80,7 @@ router.post('/new', async (req, res, next) => {
 
 //讓短網址重新導向
 router.get('/:shortUrl', (req, res) => {
-  const shortUrl = `http://localhost:3000/${req.params.shortUrl}`
+  const shortUrl = `https://secret-thicket-82895.herokuapp.com/${req.params.shortUrl}`
   urldata.findOne({ urlShort: shortUrl })
     .then((url) => {
       if (url == null) {
