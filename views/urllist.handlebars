@@ -11,9 +11,10 @@
       <tbody>
         {{#each url}}
         <tr class="table-light">
-          <td><a href="{{this.urlFull}}">{{this.urlFull}}</a></td>
-          <td><a href="{{this.urlShort}}">{{this.urlShort}}</a></td>
-          <td>{{this.click}}</td>
+          <td class="align-middle" style="max-width: 400px"><a style="word-wrap:break-word;"
+              href="{{this.urlFull}}">{{this.urlFull}}</a></td>
+          <td class="align-middle"><a href="{{this.urlShort}}">{{this.urlShort}}</a></td>
+          <td class="align-middle">{{this.click}}</td>
         </tr>
         {{/each}}
       </tbody>
